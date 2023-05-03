@@ -125,30 +125,43 @@
         </script>
       </div>
     </body>
-    <div id="footer" style="background-color:#7193c5;clear:both;text-align:center;">
+   <div id="footer" style="background-color:#7193c5;clear:both;text-align:center;">
         <div align="center">
-            <div align="center" class="D1">
-                距离六级考试还有 <b id="time"> </b>
+            <div align="center" class="D2">
+                距离六级考试还有：<b><big id="hh"></big></b>
             </div>
-            </div>
-        <script>
-            let future= new Date(2023,6,17);
-            function  time(){
-                let N =new Date();
-                let d=(future.getTime()-N.getTime())/86400000;
-                let h=(future.getTime()-N.getTime())%86400000/3600000;
-                let m=(future.getTime()-N.getTime())%3600000/60000;
-                let s=(future.getTime()-N.getTime())%60000/1000;
-                document.getElementById("time").innerHTML=d.toFixed(0)+"天"+h.toFixed(0)+"小时"+m.toFixed(0)+"分钟"+s.toFixed(0)+"秒"
+         </div>
+            <script type="text/javascript">
+                function station(x,y,z){
+                    //当前时间
+                    var now = Date.now(),
+                        //结束时间
+                        end = new Date(x,y-1,z),
+                        ends = end.getTime();
+                    var ss = ends - now;
+                    var s = Math.floor(ss/1000);
+                    //相差天数
+                    var day = Math.floor(s / 60 / 60 / 24);
+                    //相差小时数
+                    var hours = Math.floor(s / 60 / 60 % 24);
+                    //相差分钟数
+                    var min = Math.floor(s / 60 % 60 );
+                    //相差秒数
+                    var sec = Math.floor(s % 60 );
+                    var html = ""+day+"天"+hours+"时"+min+"分"+sec+"秒";
+                    hh.innerHTML = html;
+                }
+                station(2023,06,17);
+                //一秒一次调用
+                setInterval(function(){
+                    station(2023,06,17);
+                },1000);
+            </script>
+            <style type="text/css">
+            #hh{
+                font-size: 20px;
+                text-align: center;
             }
-            function now(){
-                let N =new Date();
-                document.getElementById("now").innerHTML=N.getFullYear()+"年"+(N.getMonth()+1)+"月"+N.getDate()+"日"+N.getHours()+"小时"+
-                    N.getMinutes()+"分钟"+N.getSeconds()+"秒";
-                console.log("aaa");
-            }
-            setInterval(now,1000);
-            setInterval(time,1000);
-        </script>
+        </style>
     </div>
 </html> 
